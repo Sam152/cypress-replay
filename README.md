@@ -1,11 +1,12 @@
 Cypress Replay
 ===
 
-Record things happening in a Cypress test and replay them on CI.
+Records requests made to your services in Cypress tests and stores them in fixture files for replay on CI.
+Inspired by projects such as [cypress-autorecord](https://github.com/Nanciee/cypress-autorecord), [cypressautomocker](https://github.com/scottschafer/cypressautomocker) and [cypress-autostub](https://github.com/dan-cooke/cypress-autostub).  
 
 # Installing
 
-Add the following line to your `cypress.config.ts` file:
+Add the following configuration line to your `cypress.config.ts` file:
 
 ```
 export default defineConfig({
@@ -17,7 +18,7 @@ export default defineConfig({
 });
 ```
 
-Add the following to each one your tests you wish to use cypress replay:
+Add the following to the body of each test you wish to use the replay functionality with:
 
 ```
 context('Test something', () => {

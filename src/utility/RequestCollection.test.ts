@@ -28,13 +28,13 @@ test('requests can be pushed and popped from the collection', () => {
     collection.addRequest(requestB, {
         body: "Request B response"
     });
-    collection.addRequest(requestB, {
+    collection.addRequest(requestA, {
         body: "Request A second response"
     });
 
     expect(collection.shiftRequest(requestB)?.body).toEqual("Request B response");
-    expect(collection.shiftRequest(requestB)?.body).toEqual(null);
+    expect(collection.shiftRequest(requestB)).toEqual(null);
     expect(collection.shiftRequest(requestA)?.body).toEqual("Request A first response");
     expect(collection.shiftRequest(requestA)?.body).toEqual("Request A second response");
-    expect(collection.shiftRequest(requestA)?.body).toEqual(null);
+    expect(collection.shiftRequest(requestA)).toEqual(null);
 });

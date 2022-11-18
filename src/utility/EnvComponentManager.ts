@@ -1,5 +1,3 @@
-import Config = Cypress.Config;
-
 export default class EnvComponentManager {
     private dynamicEnvMap: { [key: string]: string };
 
