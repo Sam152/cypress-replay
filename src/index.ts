@@ -11,8 +11,8 @@ export enum ReplayMode {
     Replaying
 }
 
-export default function enableCypressReplay(mode: ReplayMode | undefined) {
-    const replayMode = mode !== undefined ? mode : (Cypress.env('REPLAY_RECORD_REQUESTS') ? ReplayMode.Recording : ReplayMode.Replaying);
+export default function enableCypressReplay(mode: ReplayMode | null = null) {
+    const replayMode = mode !== null ? mode : (Cypress.env('REPLAY_RECORD_REQUESTS') ? ReplayMode.Recording : ReplayMode.Replaying);
 
     if (replayMode === ReplayMode.Recording) {
         recordRequests();

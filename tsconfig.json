@@ -5,6 +5,7 @@
   ],
   "include": [
     "node_modules/cypress",
+    "**/*.ts"
   ],
   "compilerOptions": {
     "target": "es2021",
@@ -14,6 +15,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["cypress", "node"]
   }
 }
