@@ -1,7 +1,7 @@
 import {CyHttpMessages} from "cypress/types/net-stubbing";
 import loadConfiguration from "../utility/loadConfiguration";
 import RequestCollection from "../utility/RequestCollection";
-import processHeaders from "../utility/processHeaders";
+import sanitizeHeaders from "../utility/sanitizeHeaders";
 import createFixtureFilename from "../utility/createFixtureFilename";
 import EnvComponentManager from "../utility/EnvComponentManager";
 
@@ -17,7 +17,7 @@ export default function recordRequests() {
             req.on("after:response", (response: CyHttpMessages.IncomingResponse) => {
                 requestCollection.addRequest(req, {
                     body: response.body,
-                    headers: processHeaders(response.headers),
+                    headers: sanitizeHeaders(response.headers),
                     statusCode: response.statusCode,
                 });
             });

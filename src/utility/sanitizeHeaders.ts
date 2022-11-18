@@ -2,7 +2,7 @@ const badHeaders = [
    'content-encoding',
 ];
 
-export default function processHeaders(headers: { [key: string]: string | string[] }): { [key: string]: string } {
+export default function sanitizeHeaders(headers: { [key: string]: string | string[] }): { [key: string]: string } {
 
     const processedHeaders: { [key: string]: string } = {};
 

@@ -9,11 +9,12 @@ Add the following line to your `cypress.config.ts` file:
 
 ```
 export default defineConfig({
-  e2e: {
-    setupNodeEvents(on, config) {
-      installCypressReplayPlugin(on, config); // This line will install the plugin.
-    },
-  },
+  // @ts-ignore
+  cypressReplay: {
+    interceptPattern: ".*",
+    dynamicRequestEnvComponents: [],
+  }
+});
 ```
 
 Add the following to each one your tests you wish to use cypress replay:
@@ -26,27 +27,18 @@ context('Test something', () => {
         ...
 ```
 
-# Configuring
-
-Add the following lines to your `cypress.config.ts` file to configure the plugin:
+# Configuration options
 
 ```
-export default defineConfig({
-  ...
+/**
+ * This 
+ */
+interceptPattern: "jsonplaceholder\.cypress\.io",
 
-  cypressReplay: {
-
-    /**
-     * This 
-     */
-    interceptPattern: "jsonplaceholder\.cypress\.io",
-
-    /**
-     * 
-     */
-    dynamicRequestEnvComponents: ["REACT_APP_AUTH_URL", "REACT_APP_CMS_URL", "REACT_APP_CROWDML_URL", "REACT_APP_DPA_URL"],
-  }
-});
+/**
+ * 
+ */
+dynamicRequestEnvComponents: ["REACT_APP_AUTH_URL", "REACT_APP_CMS_URL", "REACT_APP_CROWDML_URL", "REACT_APP_DPA_URL"],
 ```
 
 # Choosing the mode (recording or replaying)

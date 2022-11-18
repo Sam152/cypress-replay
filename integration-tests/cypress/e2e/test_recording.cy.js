@@ -1,5 +1,4 @@
-import enableCypressReplay from "../../../src/enableCypressReplay";
-import {ReplayMode} from "../../../src";
+import enableCypressReplay, {ReplayMode} from "../../../src";
 
 context('Cypress Replay', () => {
   enableCypressReplay(ReplayMode.Replaying);
