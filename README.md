@@ -39,14 +39,16 @@ context('Test something', () => {
 
 ```
 /**
- * This 
+ * A Regex that matches all the endpoints you intend to replay. 
  */
-interceptPattern: "jsonplaceholder\.cypress\.io",
+interceptPattern: "jsonplaceholder\.cypress\.io|some-other-endpoint\.com",
 
 /**
- * 
+ * A list of environment variables that should be substituted in your replay files - this is helpful if your API
+ * endpoints are defined with environment variables and you would like a deterministic replay, regardless of how each
+ * is configured.
  */
-dynamicRequestEnvComponents: ["REACT_APP_AUTH_URL", "REACT_APP_CMS_URL", "REACT_APP_CROWDML_URL", "REACT_APP_DPA_URL"],
+dynamicRequestEnvComponents: ["REACT_APP_MY_API_ENDPOINT"],
 ```
 
 ## Choosing the mode (recording or replaying)
