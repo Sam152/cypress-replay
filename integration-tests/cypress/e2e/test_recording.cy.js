@@ -22,4 +22,4 @@ context('Cypress Replay', () => {
     cy.get('.network-put').click();
     cy.wait(1000);
   });
-})
+});
