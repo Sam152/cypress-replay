@@ -1,7 +1,8 @@
 import enableCypressReplay, {ReplayMode} from "../../../src";
 
 context('Cypress Replay', () => {
-  enableCypressReplay(ReplayMode.Replaying);
+  // enableCypressReplay(ReplayMode.Replaying);
+  enableCypressReplay(ReplayMode.Recording);
 
   beforeEach(() => {
     cy.visit('https://example.cypress.io/commands/network-requests')

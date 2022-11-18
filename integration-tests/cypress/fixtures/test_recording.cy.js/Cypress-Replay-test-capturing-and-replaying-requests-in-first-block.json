@@ -9,7 +9,7 @@
                 "body": "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium"
             },
             "headers": {
-                "date": "Fri, 18 Nov 2022 06:50:29 GMT",
+                "date": "Fri, 18 Nov 2022 08:13:01 GMT",
                 "content-type": "application/json; charset=utf-8",
                 "transfer-encoding": "chunked",
                 "connection": "keep-alive",
@@ -25,9 +25,10 @@
                 "via": "1.1 vegur",
                 "cf-cache-status": "DYNAMIC",
                 "server": "cloudflare",
-                "cf-ray": "76bec5a9dfe8a8d1-SYD"
+                "cf-ray": "76bf3e8e7a66a88e-SYD"
             },
-            "statusCode": 200
+            "statusCode": 200,
+            "delay": 536
         },
         {
             "body": {
@@ -38,7 +39,7 @@
                 "body": "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium"
             },
             "headers": {
-                "date": "Fri, 18 Nov 2022 06:50:29 GMT",
+                "date": "Fri, 18 Nov 2022 08:13:01 GMT",
                 "content-type": "application/json; charset=utf-8",
                 "transfer-encoding": "chunked",
                 "connection": "keep-alive",
@@ -54,9 +55,10 @@
                 "via": "1.1 vegur",
                 "cf-cache-status": "DYNAMIC",
                 "server": "cloudflare",
-                "cf-ray": "76bec5ad9b2aa8d1-SYD"
+                "cf-ray": "76bf3e921e30a88e-SYD"
             },
-            "statusCode": 200
+            "statusCode": 200,
+            "delay": -460
         }
     ]
 }

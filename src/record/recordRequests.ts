@@ -13,13 +13,21 @@ export default function recordRequests() {
     beforeEach(() => {
         requestCollection = new RequestCollection(dynamicComponentManager);
 
-        cy.intercept(new RegExp(loadConfiguration().interceptPattern), (req: CyHttpMessages.IncomingHttpRequest) => {
-            req.on("after:response", (response: CyHttpMessages.IncomingResponse) => {
-                requestCollection.addRequest(req, {
+        cy.intercept(new RegExp(loadConfiguration().interceptPattern), (request: CyHttpMessages.IncomingHttpRequest) => {
+            const startTime = (new Date()).getMilliseconds();
+
+            request.on("after:response", (response: CyHttpMessages.IncomingResponse) => {
+                const endTime = (new Date()).getMilliseconds();
+
+                requestCollection.addRequest(request, {
                     body: response.body,
                     headers: sanitizeHeaders(response.headers),
                     statusCode: response.statusCode,
+                    // Including a delay that matches how long the server took to response will help make tests more
+                    // deterministic.
+                    delay: endTime - startTime,
                 });
+
             });
         });
     });

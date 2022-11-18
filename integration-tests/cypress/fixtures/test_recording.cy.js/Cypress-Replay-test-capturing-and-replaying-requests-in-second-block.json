@@ -8,7 +8,7 @@
                 "id": 501
             },
             "headers": {
-                "date": "Fri, 18 Nov 2022 06:50:31 GMT",
+                "date": "Fri, 18 Nov 2022 08:13:02 GMT",
                 "content-type": "application/json; charset=utf-8",
                 "content-length": "190",
                 "connection": "keep-alive",
@@ -26,9 +26,10 @@
                 "via": "1.1 vegur",
                 "cf-cache-status": "DYNAMIC",
                 "server": "cloudflare",
-                "cf-ray": "76bec5b57a04a8d1-SYD"
+                "cf-ray": "76bf3e9a2e7da88e-SYD"
             },
-            "statusCode": 201
+            "statusCode": 201,
+            "delay": 526
         }
     ],
     "PUT:{API_URL}/comments/1": [
@@ -40,7 +41,7 @@
                 "id": 1
             },
             "headers": {
-                "date": "Fri, 18 Nov 2022 06:50:31 GMT",
+                "date": "Fri, 18 Nov 2022 08:13:03 GMT",
                 "content-type": "application/json; charset=utf-8",
                 "transfer-encoding": "chunked",
                 "connection": "keep-alive",
@@ -56,9 +57,10 @@
                 "via": "1.1 vegur",
                 "cf-cache-status": "DYNAMIC",
                 "server": "cloudflare",
-                "cf-ray": "76bec5b8fd34a8d1-SYD"
+                "cf-ray": "76bf3e9dca4ea88e-SYD"
             },
-            "statusCode": 200
+            "statusCode": 200,
+            "delay": -445
         }
     ]
 }
