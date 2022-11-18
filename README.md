@@ -8,6 +8,11 @@ Compatible with Cypress 6+ (tested on Cypress 11).
 
 ## Installing
 
+```
+yarn add --dev cypress-replay
+npm install --save-dev cypress-replay
+```
+
 Add the following configuration line to your `cypress.config.ts` file:
 
 ```
