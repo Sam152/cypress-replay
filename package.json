@@ -16,7 +16,8 @@
     "build": "tsc",
     "watch": "tsc --watch",
     "test": "jest",
-    "test-integration": "CYPRESS_API_URL='https://jsonplaceholder.cypress.io' cypress open --project integration-tests"
+    "test-integration": "CYPRESS_API_URL='https://jsonplaceholder.cypress.io' cypress open --project integration-tests",
+    "release-patch": "yarn run build && npm version patch && npm publish"
   },
   "files": [
     "lib/**/*"

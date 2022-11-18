@@ -41,16 +41,3 @@ test('that request keys are created from POST body with JSON object', () => {
         })
     ).toEqual("POST:https://example.com/foo/bar:{\"post\":\"body\"}")
 });
-
-test('that request keys are created from POST body with binary body', () => {
-    expect(
-        createRequestKey({
-            body: Buffer.from("abc"),
-            headers: {},
-            url: "https://example.com/foo/bar",
-            method: "POST",
-            query: {},
-            httpVersion: "1.1",
-        })
-    ).toEqual("POST:https://example.com/foo/bar:abc:{\"type\":\"Buffer\",\"data\":[97,98,99]}")
-});
