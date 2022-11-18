@@ -1,6 +1,6 @@
 export type ReplayConfig = {
     interceptPattern: string,
-    serviceEnvVars: Array<string>,
+    dynamicRequestEnvComponents?: Array<string>,
 };
 
 export enum ReplayMode {

@@ -1,4 +1,4 @@
-import {ReplayConfig, ReplayMode} from "./index";
+import {ReplayMode} from "./index";
 import recordRequests from "./record/recordRequests";
 import replayRequests from "./replay/replayRequests";
 
@@ -8,7 +8,6 @@ export default function enableCypressReplay(mode: ReplayMode | undefined) {
     if (replayMode === ReplayMode.Recording) {
         recordRequests();
     }
-
     if (replayMode === ReplayMode.Replaying) {
         replayRequests();
     }

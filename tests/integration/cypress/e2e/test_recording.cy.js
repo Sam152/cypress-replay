@@ -2,7 +2,7 @@ import enableCypressReplay from "../../../../src/enableCypressReplay";
 import {ReplayMode} from "../../../../src";
 
 context('Cypress Replay', () => {
-  enableCypressReplay(ReplayMode.Recording);
+  enableCypressReplay(ReplayMode.Replaying);
 
   beforeEach(() => {
     cy.visit('https://example.cypress.io/commands/network-requests')
@@ -11,6 +11,9 @@ context('Cypress Replay', () => {
   it('test capturing and replaying requests in first block', () => {
     cy.get('.network-btn').click();
     cy.get('body').contains('laudantium enim quasi est');
+
+    cy.get('.network-btn').click();
+    cy.wait(1000);
   });
 
   it('test capturing and replaying requests in second block', () => {
@@ -18,5 +21,6 @@ context('Cypress Replay', () => {
     cy.get('body').contains('POST successful!');
 
     cy.get('.network-put').click();
+    cy.wait(1000);
   });
 })

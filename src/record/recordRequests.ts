@@ -1,16 +1,17 @@
-
 import {CyHttpMessages} from "cypress/types/net-stubbing";
 import loadConfiguration from "../utility/loadConfiguration";
 import RequestCollection from "../utility/RequestCollection";
 import processHeaders from "../utility/processHeaders";
 import createFixtureFilename from "../utility/createFixtureFilename";
+import EnvComponentManager from "../utility/EnvComponentManager";
 
 export default function recordRequests() {
-
-    const requestCollection = new RequestCollection();
+    let requestCollection: RequestCollection;
+    const configuration = loadConfiguration();
+    const dynamicComponentManager = EnvComponentManager.fromEnvironment(configuration.dynamicRequestEnvComponents || [], Cypress.env);
 
     beforeEach(() => {
-        cy.log(`creating with: ${createFixtureFilename(Cypress.spec.name, Cypress.currentTest.titlePath)}`)
+        requestCollection = new RequestCollection(dynamicComponentManager);
 
         cy.intercept(new RegExp(loadConfiguration().interceptPattern), (req: CyHttpMessages.IncomingHttpRequest) => {
             req.on("after:response", (response: CyHttpMessages.IncomingResponse) => {
@@ -24,11 +25,12 @@ export default function recordRequests() {
     });
 
     afterEach(() => {
-
-        // cy.log(`ending with ${JSON.stringify(requestCollection.requests)}`);
-
-        cy.log(`creating with: ${createFixtureFilename(Cypress.spec.name, Cypress.currentTest.titlePath)}`)
-
-        // cy.task('cypress-replay:dump-file', ['foo']);
+        cy.writeFile(
+            createFixtureFilename(
+                Cypress.config().fixturesFolder as string,
+                Cypress.spec.name,
+                Cypress.currentTest.titlePath
+            ), JSON.stringify(requestCollection.requests, null, 4)
+        );
     });
 }

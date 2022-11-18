@@ -1,0 +1,64 @@
+{
+    "POST:https://jsonplaceholder.cypress.io/comments": [
+        {
+            "body": {
+                "name": "Using POST in cy.intercept()",
+                "email": "hello@cypress.io",
+                "body": "You can change the method used for cy.intercept() to be GET, POST, PUT, PATCH, or DELETE",
+                "id": 501
+            },
+            "headers": {
+                "date": "Fri, 18 Nov 2022 06:47:07 GMT",
+                "content-type": "application/json; charset=utf-8",
+                "content-length": "190",
+                "connection": "keep-alive",
+                "x-powered-by": "Express",
+                "access-control-allow-origin": "https://example.cypress.io",
+                "vary": "Origin, X-HTTP-Method-Override, Accept-Encoding",
+                "access-control-allow-credentials": "true",
+                "cache-control": "no-cache",
+                "pragma": "no-cache",
+                "expires": "-1",
+                "access-control-expose-headers": "Location",
+                "location": "http://jsonplaceholder.cypress.io/comments/501",
+                "x-content-type-options": "nosniff",
+                "etag": "W/\"be-fuawCKtPpVB69ExIfkrab1RBBHM\"",
+                "via": "1.1 vegur",
+                "cf-cache-status": "DYNAMIC",
+                "server": "cloudflare",
+                "cf-ray": "76bec0bf3ec9a864-SYD"
+            },
+            "statusCode": 201
+        }
+    ],
+    "PUT:https://jsonplaceholder.cypress.io/comments/1": [
+        {
+            "body": {
+                "name": "Using PUT in cy.intercept()",
+                "email": "hello@cypress.io",
+                "body": "You can change the method used for cy.intercept() to be GET, POST, PUT, PATCH, or DELETE",
+                "id": 1
+            },
+            "headers": {
+                "date": "Fri, 18 Nov 2022 06:47:08 GMT",
+                "content-type": "application/json; charset=utf-8",
+                "transfer-encoding": "chunked",
+                "connection": "keep-alive",
+                "x-powered-by": "Express",
+                "access-control-allow-origin": "https://example.cypress.io",
+                "vary": "Origin, Accept-Encoding",
+                "access-control-allow-credentials": "true",
+                "cache-control": "no-cache",
+                "pragma": "no-cache",
+                "expires": "-1",
+                "x-content-type-options": "nosniff",
+                "etag": "W/\"bb-W5jNNwg7rtakcpK+3rjVL56e8nU\"",
+                "via": "1.1 vegur",
+                "cf-cache-status": "DYNAMIC",
+                "server": "cloudflare",
+                "cf-ray": "76bec0c2fadca864-SYD"
+            },
+            "statusCode": 200
+        }
+    ]
+}

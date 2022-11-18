@@ -44,7 +44,7 @@ export default defineConfig({
     /**
      * 
      */
-    serviceEnvVars: ["REACT_APP_AUTH_URL", "REACT_APP_CMS_URL", "REACT_APP_CROWDML_URL", "REACT_APP_DPA_URL"],
+    dynamicRequestEnvComponents: ["REACT_APP_AUTH_URL", "REACT_APP_CMS_URL", "REACT_APP_CROWDML_URL", "REACT_APP_DPA_URL"],
   }
 });
 ```
@@ -55,4 +55,3 @@ There are two ways to specify if the plugin should be recording or replaying:
 
 * Passing an environment variable while starting the cypress runner: `CYPRESS_REPLAY_RECORD_REQUESTS=1 yarn run cy`
 * Passing an argument to `enableCypressReplay`: `enableCypressReplay(ReplayMode.Recording | ReplayMode.Replaying)` 
-* 
