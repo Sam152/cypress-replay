@@ -3,6 +3,9 @@
     "integration-tests",
     "lib"
   ],
+  "include": [
+    "node_modules/cypress",
+  ],
   "compilerOptions": {
     "target": "es2021",
     "module": "commonjs",
