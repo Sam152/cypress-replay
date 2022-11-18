@@ -1,5 +1,5 @@
 import { defineConfig } from "cypress";
-import installCypressReplayPlugin from "../../src/installCypressReplayPlugin";
+import installCypressReplayPlugin from "../src/installCypressReplayPlugin";
 
 
 export default defineConfig({
@@ -12,6 +12,6 @@ export default defineConfig({
   // @ts-ignore
   cypressReplay: {
     interceptPattern: "jsonplaceholder\.cypress\.io",
-    dynamicRequestEnvComponents: ["REACT_APP_AUTH_URL", "REACT_APP_CMS_URL", "REACT_APP_CROWDML_URL", "REACT_APP_DPA_URL"],
+    dynamicRequestEnvComponents: ["API_URL"],
   }
 });

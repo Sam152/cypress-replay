@@ -1,5 +1,5 @@
 {
-    "GET:https://jsonplaceholder.cypress.io/comments/1": [
+    "GET:{API_URL}/comments/1": [
         {
             "body": {
                 "postId": 1,
@@ -9,7 +9,7 @@
                 "body": "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium"
             },
             "headers": {
-                "date": "Fri, 18 Nov 2022 06:47:06 GMT",
+                "date": "Fri, 18 Nov 2022 06:50:29 GMT",
                 "content-type": "application/json; charset=utf-8",
                 "transfer-encoding": "chunked",
                 "connection": "keep-alive",
@@ -25,7 +25,7 @@
                 "via": "1.1 vegur",
                 "cf-cache-status": "DYNAMIC",
                 "server": "cloudflare",
-                "cf-ray": "76bec0b3db36a864-SYD"
+                "cf-ray": "76bec5a9dfe8a8d1-SYD"
             },
             "statusCode": 200
         },
@@ -38,7 +38,7 @@
                 "body": "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium"
             },
             "headers": {
-                "date": "Fri, 18 Nov 2022 06:47:06 GMT",
+                "date": "Fri, 18 Nov 2022 06:50:29 GMT",
                 "content-type": "application/json; charset=utf-8",
                 "transfer-encoding": "chunked",
                 "connection": "keep-alive",
@@ -54,7 +54,7 @@
                 "via": "1.1 vegur",
                 "cf-cache-status": "DYNAMIC",
                 "server": "cloudflare",
-                "cf-ray": "76bec0b77edea864-SYD"
+                "cf-ray": "76bec5ad9b2aa8d1-SYD"
             },
             "statusCode": 200
         }

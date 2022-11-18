@@ -16,7 +16,7 @@
     "build": "tsc",
     "watch": "tsc --watch",
     "test": "jest",
-    "test-integration": "cypress open --project tests/integration/"
+    "test-integration": "CYPRESS_API_URL='https://jsonplaceholder.cypress.io' cypress open --project integration-tests"
   },
   "files": [
     "lib/**/*"

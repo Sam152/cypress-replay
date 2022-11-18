@@ -1,5 +1,5 @@
 {
-    "POST:https://jsonplaceholder.cypress.io/comments": [
+    "POST:{API_URL}/comments": [
         {
             "body": {
                 "name": "Using POST in cy.intercept()",
@@ -8,7 +8,7 @@
                 "id": 501
             },
             "headers": {
-                "date": "Fri, 18 Nov 2022 06:47:07 GMT",
+                "date": "Fri, 18 Nov 2022 06:50:31 GMT",
                 "content-type": "application/json; charset=utf-8",
                 "content-length": "190",
                 "connection": "keep-alive",
@@ -26,12 +26,12 @@
                 "via": "1.1 vegur",
                 "cf-cache-status": "DYNAMIC",
                 "server": "cloudflare",
-                "cf-ray": "76bec0bf3ec9a864-SYD"
+                "cf-ray": "76bec5b57a04a8d1-SYD"
             },
             "statusCode": 201
         }
     ],
-    "PUT:https://jsonplaceholder.cypress.io/comments/1": [
+    "PUT:{API_URL}/comments/1": [
         {
             "body": {
                 "name": "Using PUT in cy.intercept()",
@@ -40,7 +40,7 @@
                 "id": 1
             },
             "headers": {
-                "date": "Fri, 18 Nov 2022 06:47:08 GMT",
+                "date": "Fri, 18 Nov 2022 06:50:31 GMT",
                 "content-type": "application/json; charset=utf-8",
                 "transfer-encoding": "chunked",
                 "connection": "keep-alive",
@@ -56,7 +56,7 @@
                 "via": "1.1 vegur",
                 "cf-cache-status": "DYNAMIC",
                 "server": "cloudflare",
-                "cf-ray": "76bec0c2fadca864-SYD"
+                "cf-ray": "76bec5b8fd34a8d1-SYD"
             },
             "statusCode": 200
         }
