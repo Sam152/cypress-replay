@@ -7,9 +7,6 @@ export default function createRequestKey(request: IncomingRequest) {
         request.url,
     ];
 
-    if (Object.keys(request.query).length) {
-        keyComponents.push(JSON.stringify(request.query));
-    }
     if (typeof request.body === 'object') {
         keyComponents.push(JSON.stringify(request.body));
     }

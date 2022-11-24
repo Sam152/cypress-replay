@@ -1,7 +1,8 @@
 {
   "exclude": [
     "integration-tests",
-    "lib"
+    "lib",
+    "**/*.test.ts"
   ],
   "include": [
     "node_modules/cypress",

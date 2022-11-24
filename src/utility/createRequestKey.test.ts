@@ -14,19 +14,19 @@ test('that request keys are created from normal GET requests', () => {
     ).toEqual("GET:https://example.com/foo/bar")
 });
 
-test('that request keys are created from normal GET requests', () => {
+test('that request keys are do not duplicate the query string', () => {
     expect(
         createRequestKey({
             body: "",
             headers: {},
-            url: "https://example.com/foo/bar",
+            url: "https://example.com/foo/bar?foo=bar",
             method: "GET",
             query: {
                 "foo": "Bar",
             },
             httpVersion: "1.1",
         })
-    ).toEqual("GET:https://example.com/foo/bar:{\"foo\":\"Bar\"}")
+    ).toEqual("GET:https://example.com/foo/bar?foo=bar")
 });
 
 test('that request keys are created from POST body with JSON object', () => {
