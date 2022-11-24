@@ -1,7 +1,7 @@
 import {CyHttpMessages, StaticResponse} from "cypress/types/net-stubbing";
-import IncomingRequest = CyHttpMessages.IncomingRequest;
 import createRequestKey from "./createRequestKey";
 import EnvComponentManager from "./EnvComponentManager";
+import IncomingRequest = CyHttpMessages.IncomingRequest;
 
 export type RequestMap = {
     [key: string]: StaticResponse[],
