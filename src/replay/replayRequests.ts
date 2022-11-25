@@ -31,6 +31,6 @@ export default function recordRequests() {
     });
 
     afterEach(() => {
-        logger.getAll().map(log => cy.log(`cypress-replay: ${log.message}`, log.context));
+        logger.getAll().map(log => cy.log(`cypress-replay: ${log.message}\n\n${JSON.stringify(log.context)}`));
     });
 }
