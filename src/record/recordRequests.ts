@@ -17,7 +17,7 @@ export default function recordRequests() {
             const startTime = Date.now();
 
             request.on("after:response", (response: CyHttpMessages.IncomingResponse) => {
-                requestCollection.addRequest(request, {
+                requestCollection.pushRequest(request, {
                     body: response.body,
                     headers: sanitizeHeaders(response.headers),
                     statusCode: response.statusCode,
