@@ -22,13 +22,13 @@ test('requests can be pushed and popped from the collection', () => {
         httpVersion: "1.1",
     };
 
-    collection.addRequest(requestA, {
+    collection.pushRequest(requestA, {
         body: "Request A first response"
     });
-    collection.addRequest(requestB, {
+    collection.pushRequest(requestB, {
         body: "Request B response"
     });
-    collection.addRequest(requestA, {
+    collection.pushRequest(requestA, {
         body: "Request A second response"
     });
 
