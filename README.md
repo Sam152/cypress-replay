@@ -20,7 +20,6 @@ export default defineConfig({
   // @ts-ignore
   cypressReplay: {
     interceptPattern: ".*",
-    dynamicRequestEnvComponents: [],
   }
 });
 ```
@@ -39,18 +38,32 @@ context('Test something', () => {
 
 ## Configuration options
 
+Configuration can either be set globally (in the `cypress.config.ts` file as above), or be passed in to the
+`enableCypressReplay` function, used to enable the replay functionality. Each configuration option is optional and
+documented below:
+
 ```
 /**
- * A Regex that matches all the endpoints you intend to replay. 
+ * A Regex that matches all the endpoints you intend to record and replay.
  */
 interceptPattern: "jsonplaceholder\.cypress\.io|some-other-endpoint\.com",
 
 /**
- * A list of environment variables that should be substituted in your replay files - this is helpful if your API
- * endpoints are defined with environment variables and you would like a deterministic replay, regardless of how each
+ * A list of environment variables that should be substituted in your replay
+ * files - this is helpful if your API endpoints are defined with environment
+ * variables and you would like a deterministic replay, regardless of how each
  * is configured.
  */
 dynamicRequestEnvComponents: ["REACT_APP_MY_API_ENDPOINT"],
+
+/**
+ * To ensure tests are deterministic, the time taken for each request during
+ * recording is used as a delay when replaying. For some applications, replaying
+ * with an accurate delay may not matter and it's preferable for tests to run as
+ * fast as possible. In this case, you may specify an override (with 0 being
+ * instant) for how long a response is delayed during a replay.  
+ */
+responseDelayOverride: 20,
 ```
 
 ## Choosing the mode (recording or replaying)
@@ -58,7 +71,13 @@ dynamicRequestEnvComponents: ["REACT_APP_MY_API_ENDPOINT"],
 There are two ways to specify if the plugin should be recording or replaying:
 
 * Passing an environment variable while starting the cypress runner: `CYPRESS_REPLAY_RECORD_REQUESTS=1 yarn run cy`
-* Passing an argument to `enableCypressReplay`: `enableCypressReplay(ReplayMode.Recording | ReplayMode.Replaying)` 
+* Passing an argument to `enableCypressReplay`:
+
+```
+enableCypressReplay() // Uses the "CYPRESS_REPLAY_RECORD_REQUESTS" environment variable or defaults to "Replaying".
+enableCypressReplay(ReplayMode.Recording) // Enforces "Recording" mode.
+enableCypressReplay(ReplayMode.Replaying) // Enforces "Replaying" mode.
+```
 
 ## Best practices
 
