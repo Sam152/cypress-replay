@@ -21,7 +21,7 @@ export default function recordRequests() {
         ).then(fileContents => {
             return new RequestCollection(dynamicComponentManager, fileContents, logger);
         }).then(requestCollection => {
-            cy.intercept(new RegExp(loadConfiguration().interceptPattern), (req: CyHttpMessages.IncomingHttpRequest) => {
+            cy.intercept(new RegExp(loadConfiguration().interceptPattern || ".*"), (req: CyHttpMessages.IncomingHttpRequest) => {
                 const fixtureResponse = requestCollection.shiftRequest(req);
                 if (fixtureResponse) {
                     req.reply(fixtureResponse);
