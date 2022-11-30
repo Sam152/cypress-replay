@@ -25,8 +25,7 @@ export default function recordRequests(configuration: ReplayConfig) {
                 if (fixtureResponse) {
                     req.reply({
                         ...fixtureResponse,
-                        // Optionally enforce a delay, if specified in the configuration.
-                        ...(configuration.responseDelayOverride !== undefined ? {delay: configuration.responseDelayOverride} : {})
+                        delay: configuration.responseDelayOverride !== undefined ? configuration.responseDelayOverride : fixtureResponse.delay,
                     });
                 }
             });
