@@ -27,6 +27,8 @@ export default defineConfig({
 Add the following to the body of each test you wish to use the replay functionality with:
 
 ```
+import enableCypressReplay from "cypress-replay";
+
 context('Test something', () => {
     enableCypressReplay();
 
