@@ -72,8 +72,9 @@ There are two ways to specify if the plugin should be recording or replaying:
 
 * Passing an environment variable while starting the cypress runner: `CYPRESS_REPLAY_RECORD_REQUESTS=1 yarn run cy`
 * Passing an argument to `enableCypressReplay`:
+
 ```
-enableCypressReplay() // Uses the "CYPRESS_REPLAY_RECORD_REQUESTS" variable or defaults to "Replaying".
+enableCypressReplay() // Uses the "CYPRESS_REPLAY_RECORD_REQUESTS" environment variable or defaults to "Replaying".
 enableCypressReplay(ReplayMode.Recording) // Enforces "Recording" mode.
 enableCypressReplay(ReplayMode.Replaying) // Enforces "Replaying" mode.
 ```
