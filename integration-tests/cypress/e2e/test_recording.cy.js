@@ -1,7 +1,7 @@
 import enableCypressReplay, {ReplayMode} from "../../../src";
 
 context('Cypress Replay', () => {
-  enableCypressReplay(ReplayMode.Replaying);
+  enableCypressReplay(ReplayMode.Replaying, {responseDelayOverride: 0});
   // enableCypressReplay(ReplayMode.Recording);
 
   beforeEach(() => {

@@ -1,19 +1,18 @@
 import {CyHttpMessages} from "cypress/types/net-stubbing";
-import loadConfiguration from "../utility/loadConfiguration";
 import RequestCollection from "../utility/RequestCollection";
 import sanitizeHeaders from "../utility/sanitizeHeaders";
 import createFixtureFilename from "../utility/createFixtureFilename";
 import EnvComponentManager from "../utility/EnvComponentManager";
+import {ReplayConfig} from "../index";
 
-export default function recordRequests() {
+export default function recordRequests(configuration: ReplayConfig) {
     let requestCollection: RequestCollection;
-    const configuration = loadConfiguration();
     const dynamicComponentManager = EnvComponentManager.fromEnvironment(configuration.dynamicRequestEnvComponents || [], Cypress.env);
 
     beforeEach(() => {
         requestCollection = new RequestCollection(dynamicComponentManager);
 
-        cy.intercept(new RegExp(loadConfiguration().interceptPattern), (request: CyHttpMessages.IncomingHttpRequest) => {
+        cy.intercept(new RegExp(configuration.interceptPattern || ".*"), (request: CyHttpMessages.IncomingHttpRequest) => {
             const startTime = Date.now();
 
             request.on("after:response", (response: CyHttpMessages.IncomingResponse) => {
