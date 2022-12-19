@@ -1,0 +1,30 @@
+{
+    "GET:{API_URL}/comments/1": [
+        {
+            "insertAtIndex": 1,
+            "body": {
+                "postId": 1,
+                "id": 1,
+                "name": "id labore ex et quam laborum",
+                "email": "Eliseo@gardner.biz",
+                "body": "merged custom fixture"
+            },
+            "headers": {
+                "date": "Mon, 19 Dec 2022 00:29:20 GMT",
+                "content-type": "application/json; charset=utf-8",
+                "transfer-encoding": "chunked",
+                "connection": "keep-alive",
+                "x-powered-by": "Express",
+                "access-control-allow-origin": "https://example.cypress.io",
+                "vary": "Origin, Accept-Encoding",
+                "access-control-allow-credentials": "true",
+                "cache-control": "no-cache",
+                "pragma": "no-cache",
+                "expires": "-1",
+                "x-content-type-options": "nosniff"
+            },
+            "statusCode": 200,
+            "delay": 100
+        }
+    ]
+}

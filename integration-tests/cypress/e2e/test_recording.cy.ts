@@ -13,7 +13,10 @@ context('Cypress Replay', () => {
     cy.get('body').contains('laudantium enim quasi est');
 
     cy.get('.network-btn').click();
-    cy.wait(1000);
+    cy.get('body').contains('merged custom fixture');
+
+    cy.get('.network-btn').click();
+    cy.get('body').contains('laudantium enim quasi est');
   });
 
   it('test capturing and replaying requests in second block', () => {

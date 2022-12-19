@@ -16,7 +16,7 @@ export default function recordRequests(configuration: ReplayConfig) {
             const startTime = Date.now();
 
             request.on("after:response", (response: CyHttpMessages.IncomingResponse) => {
-                requestCollection.pushRequest(request, {
+                requestCollection.pushIncomingRequest(request, {
                     body: response.body,
                     headers: sanitizeHeaders(response.headers),
                     statusCode: response.statusCode,

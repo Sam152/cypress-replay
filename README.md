@@ -79,6 +79,27 @@ enableCypressReplay(ReplayMode.Recording) // Enforces "Recording" mode.
 enableCypressReplay(ReplayMode.Replaying) // Enforces "Replaying" mode.
 ```
 
+## Adding additional responses
+
+In some cases tests may not be deterministic, or you may have additional requests you would also like to stub. You can
+optionally provide these requests in a handcrafted fixture instead of implementing an additional call to `cy.intercept`.
+These files are loaded from the same location as recorded fixture files, but with the `.merged.json` extension. For
+example, for a recorded fixture file in `./cypress/fixtures/my-spec.ts/Spec-Name-test-working.json` you could optionally
+create the `./cypress/fixtures/my-spec.ts/Spec-Name-test-working.merged.json` file (in the same format), to stub
+additional requests.
+
+One additional and optional key named `insertAtIndex` exists, which allows the author to specify where in the list of
+responses for a given endpoint the fixed response will be inserted.
+
+```
+{
+    "GET:{API_URL}/comments/1": [
+        {
+            "insertAtIndex": 1,
+            "body": {
+                ...
+```
+
 ## Best practices
 
 I find it useful to create scripts that setup the state of your API services for recording. This might be installing a
