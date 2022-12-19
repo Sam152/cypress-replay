@@ -55,10 +55,10 @@
                 "via": "1.1 vegur",
                 "cf-cache-status": "DYNAMIC",
                 "server": "cloudflare",
-                "cf-ray": "77bc05fdee853e69-ADL"
+                "cf-ray": "77bcffa58d14f2fd-ADL"
             },
             "statusCode": 200,
-            "delay": 572
+            "delay": 552
         }
     ]
 }
