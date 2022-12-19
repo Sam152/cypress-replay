@@ -18,4 +18,3 @@ test('that a merged path can be created', () => {
         '/path/spec.ts/spec-test.merged.json',
     ]);
 });
-

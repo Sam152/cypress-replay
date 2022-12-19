@@ -22,13 +22,13 @@ test('requests can be pushed and popped from the collection', () => {
         httpVersion: "1.1",
     };
 
-    collection.pushRequest(requestA, {
+    collection.pushIncomingRequest(requestA, {
         body: "Request A first response"
     });
-    collection.pushRequest(requestB, {
+    collection.pushIncomingRequest(requestB, {
         body: "Request B response"
     });
-    collection.pushRequest(requestA, {
+    collection.pushIncomingRequest(requestA, {
         body: "Request A second response"
     });
 
@@ -37,4 +37,41 @@ test('requests can be pushed and popped from the collection', () => {
     expect(collection.shiftRequest(requestA)?.body).toEqual("Request A first response");
     expect(collection.shiftRequest(requestA)?.body).toEqual("Request A second response");
     expect(collection.shiftRequest(requestA)).toEqual(null);
+});
+
+test('responses can be appended from fixtures', () => {
+    const collection = new RequestCollection(new EnvComponentManager({}));
+    collection.appendFromFixture({
+        "GET:foo": [
+            {
+                body: "foo",
+            },
+            {
+                body: "bar",
+            }
+        ],
+    });
+    collection.appendFromFixture({
+        "GET:foo": [
+            {
+                insertAtIndex: 1,
+                body: "baz",
+            },
+        ],
+    });
+
+    expect(collection.requests).toEqual({
+        "GET:foo": [
+            {
+                body: "foo",
+            },
+            {
+                insertAtIndex: 1,
+                body: "baz",
+            },
+            {
+                body: "bar",
+            }
+        ],
+    });
 });

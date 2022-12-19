@@ -7,19 +7,41 @@ import Logger, {LoggerInterface} from "./Logger";
 export type RequestMap = {
     [key: string]: StaticResponse[],
 };
+export type RequestMapFixture = {
+    [key: string]: (StaticResponse & {insertAtIndex?: number})[],
+};
 
 export default class RequestCollection {
     private envComponentManager: EnvComponentManager;
     public requests: RequestMap;
     private logger: LoggerInterface;
 
-    constructor(envComponentManager: EnvComponentManager, requests?: RequestMap, logger?: LoggerInterface) {
+    constructor(envComponentManager: EnvComponentManager, logger?: LoggerInterface) {
         this.envComponentManager = envComponentManager;
-        this.requests = requests || {};
         this.logger = logger || new Logger();
+        this.requests = {};
     }
 
-    pushRequest(request: IncomingRequest, response: StaticResponse) {
+    appendFromFixture(fixture: RequestMapFixture) {
+        Object.keys(fixture).forEach(key => {
+            if (!this.requests[key]) {
+                this.requests[key] = [];
+            }
+            fixture[key].forEach(request => {
+                // Allow requests in fixture files to specify an index where they'll be inserted. This gives
+                // some control over where manually authored fixtures are inserted, otherwise they'll be
+                // appended in the order they are encountered.
+                if (request.insertAtIndex) {
+                    this.requests[key].splice(request.insertAtIndex, 0, request);
+                }
+                else {
+                    this.requests[key].push(request);
+                }
+            });
+        });
+    }
+
+    pushIncomingRequest(request: IncomingRequest, response: StaticResponse) {
         const key = this.envComponentManager.removeDynamicComponents(createRequestKey(request));
         if (!this.requests[key]) {
             this.requests[key] = [];
