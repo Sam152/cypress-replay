@@ -1,4 +1,4 @@
-import {CyHttpMessages} from "cypress/types/net-stubbing";
+import {CyHttpMessages, StaticResponse} from "cypress/types/net-stubbing";
 import RequestCollection from "../utility/RequestCollection";
 import sanitizeHeaders from "../utility/sanitizeHeaders";
 import createFixtureFilename from "../utility/createFixtureFilename";
@@ -15,27 +15,36 @@ export default function recordRequests(configuration: ReplayConfig) {
         cy.intercept(new RegExp(configuration.interceptPattern || ".*"), (request: CyHttpMessages.IncomingHttpRequest) => {
             const startTime = Date.now();
 
-            request.on("after:response", (response: CyHttpMessages.IncomingResponse) => {
-                requestCollection.pushIncomingRequest(request, {
-                    body: response.body,
-                    headers: sanitizeHeaders(response.headers),
-                    statusCode: response.statusCode,
-                    // Including a delay that matches how long the server took to response will help make tests more
-                    // deterministic.
-                    delay: Date.now() - startTime,
-                });
+            const promise = new Promise<StaticResponse>((resolve) => {
+               request.on("after:response", (response: CyHttpMessages.IncomingResponse) => {
+                   resolve({
+                       body: response.body,
+                       headers: sanitizeHeaders(response.headers),
+                       statusCode: response.statusCode,
+                       // Including a delay that matches how long the server took to response will help make tests more
+                       // deterministic.
+                       delay: Date.now() - startTime,
+                   })
+               });
+            })
 
-            });
+            requestCollection.pushIncomingRequest(request, promise);
         });
     });
 
     afterEach(() => {
-        cy.writeFile(
-            createFixtureFilename(
-                Cypress.config().fixturesFolder as string,
-                Cypress.spec.name,
-                Cypress.currentTest.titlePath
-            ), JSON.stringify(requestCollection.requests, null, 4)
-        );
+        cy.then(() => requestCollection.waitForRequests())
+            .then(requests => {
+                // Only write file if requests were made
+                if (Object.keys(requests).length > 0) {
+                    cy.writeFile(
+                        createFixtureFilename(
+                            Cypress.config().fixturesFolder as string,
+                            Cypress.spec.name,
+                            Cypress.currentTest.titlePath
+                        ), JSON.stringify(requests, null, 4)
+                    )
+                }
+            })
     });
 }

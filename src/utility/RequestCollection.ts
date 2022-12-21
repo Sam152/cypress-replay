@@ -5,10 +5,13 @@ import IncomingRequest = CyHttpMessages.IncomingRequest;
 import Logger, {LoggerInterface} from "./Logger";
 
 export type RequestMap = {
-    [key: string]: StaticResponse[],
+    [key: string]: Promise<StaticResponse>[],
 };
 export type RequestMapFixture = {
     [key: string]: (StaticResponse & {insertAtIndex?: number})[],
+};
+export type ResponseMap = {
+    [key: string]: StaticResponse[],
 };
 
 export default class RequestCollection {
@@ -32,16 +35,16 @@ export default class RequestCollection {
                 // some control over where manually authored fixtures are inserted, otherwise they'll be
                 // appended in the order they are encountered.
                 if (request.insertAtIndex) {
-                    this.requests[key].splice(request.insertAtIndex, 0, request);
+                    this.requests[key].splice(request.insertAtIndex, 0, Promise.resolve(request));
                 }
                 else {
-                    this.requests[key].push(request);
+                    this.requests[key].push(Promise.resolve(request));
                 }
             });
         });
     }
 
-    pushIncomingRequest(request: IncomingRequest, response: StaticResponse) {
+    pushIncomingRequest(request: IncomingRequest, response: Promise<StaticResponse>) {
         const key = this.envComponentManager.removeDynamicComponents(createRequestKey(request));
         if (!this.requests[key]) {
             this.requests[key] = [];
@@ -49,14 +52,21 @@ export default class RequestCollection {
         this.requests[key].push(response);
     }
 
-    shiftRequest(request: IncomingRequest): StaticResponse | null {
+    shiftRequest(request: IncomingRequest): Promise<StaticResponse | null> {
         const key = this.envComponentManager.removeDynamicComponents(createRequestKey(request));
         if (!this.requests[key] || this.requests[key].length === 0) {
             this.logger.push('Request missing from fixture', {key});
-            return null;
+            return Promise.resolve(null!);
         }
         this.logger.push('Request found in fixture', {key});
-        return this.requests[key].shift()!;
+        return Promise.resolve(this.requests[key].shift()!);
     }
 
+   async waitForRequests(): Promise<ResponseMap> {
+        const responses = {} as ResponseMap
+        for (const [key, response] of Object.entries(this.requests)) {
+            responses[key] = await Promise.all(response)
+        }
+        return responses
+   }
 }

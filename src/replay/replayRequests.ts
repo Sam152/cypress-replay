@@ -36,8 +36,8 @@ export default function recordRequests(configuration: ReplayConfig) {
 
             // Start interception based on the resolved request collection.
             .then(requestCollection => {
-                cy.intercept(new RegExp(configuration.interceptPattern || ".*"), (req: CyHttpMessages.IncomingHttpRequest) => {
-                    const fixtureResponse = requestCollection.shiftRequest(req);
+                cy.intercept(new RegExp(configuration.interceptPattern || ".*"), async (req: CyHttpMessages.IncomingHttpRequest) => {
+                    const fixtureResponse = await requestCollection.shiftRequest(req);
                     if (fixtureResponse) {
                         req.reply({
                             ...fixtureResponse,
