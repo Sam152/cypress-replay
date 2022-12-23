@@ -79,6 +79,9 @@ enableCypressReplay(ReplayMode.Recording) // Enforces "Recording" mode.
 enableCypressReplay(ReplayMode.Replaying) // Enforces "Replaying" mode.
 ```
 
+Note: when recording, at the completion of a test case cypress-replay will wait for any pending requests to complete
+before creating the fixture file.
+
 ## Adding additional responses
 
 In some cases tests may not be deterministic, or you may have additional requests you would also like to stub. You can
