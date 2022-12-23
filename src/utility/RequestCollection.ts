@@ -60,7 +60,7 @@ export default class RequestCollection {
         return Promise.resolve(this.requests.get(key)!.shift()!);
     }
 
-    async resolveResponseMap(): Promise<ResponseMap> {
+    async resolveMap(): Promise<ResponseMap> {
         const responses: ResponseMap = {};
         for (const [key, response] of this.requests) {
             responses[key] = await Promise.all(response);

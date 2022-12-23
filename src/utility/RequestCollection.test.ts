@@ -60,7 +60,7 @@ test('responses can be appended from fixtures', () => {
         ],
     });
 
-    expect(collection.resolveResponseMap()).resolves.toEqual({
+    expect(collection.resolveMap()).resolves.toEqual({
         "GET:foo": [
             {
                 body: "foo",
@@ -83,7 +83,7 @@ test('the response map can be resolved from pending requests that have yet to co
             body: "delayed response"
         }), 25);
     }));
-    expect(collection.resolveResponseMap()).resolves.toEqual({
+    expect(collection.resolveMap()).resolves.toEqual({
         "GET:https://example.com/api": [
             {
                 "body": "delayed response",

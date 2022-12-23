@@ -33,7 +33,7 @@ export default function recordRequests(configuration: ReplayConfig) {
     });
 
     afterEach(() => {
-        cy.then(() => requestCollection.resolveResponseMap())
+        cy.then(() => requestCollection.resolveMap())
             .then(responses => {
                 cy.writeFile(
                     createFixtureFilename(
