@@ -24,6 +24,5 @@ context('Cypress Replay', () => {
     cy.get('body').contains('POST successful!');
 
     cy.get('.network-put').click();
-    cy.wait(1000);
   });
 });
