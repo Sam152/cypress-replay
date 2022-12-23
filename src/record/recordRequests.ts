@@ -16,16 +16,16 @@ export default function recordRequests(configuration: ReplayConfig) {
             const startTime = Date.now();
 
             const promise = new Promise<StaticResponse>((resolve) => {
-               request.on("after:response", (response: CyHttpMessages.IncomingResponse) => {
-                   resolve({
-                       body: response.body,
-                       headers: sanitizeHeaders(response.headers),
-                       statusCode: response.statusCode,
-                       // Including a delay that matches how long the server took to response will help make tests more
-                       // deterministic.
-                       delay: Date.now() - startTime,
-                   })
-               });
+                request.on("after:response", (response: CyHttpMessages.IncomingResponse) => {
+                    resolve({
+                        body: response.body,
+                        headers: sanitizeHeaders(response.headers),
+                        statusCode: response.statusCode,
+                        // Including a delay that matches how long the server took to response will help make tests more
+                        // deterministic.
+                        delay: Date.now() - startTime,
+                    })
+                });
             })
 
             requestCollection.pushIncomingRequest(request, promise);
@@ -33,18 +33,15 @@ export default function recordRequests(configuration: ReplayConfig) {
     });
 
     afterEach(() => {
-        cy.then(() => requestCollection.waitForRequests())
-            .then(requests => {
-                // Only write file if requests were made
-                if (Object.keys(requests).length > 0) {
-                    cy.writeFile(
-                        createFixtureFilename(
-                            Cypress.config().fixturesFolder as string,
-                            Cypress.spec.name,
-                            Cypress.currentTest.titlePath
-                        ), JSON.stringify(requests, null, 4)
-                    )
-                }
+        cy.then(() => requestCollection.resolveResponseMap())
+            .then(responses => {
+                cy.writeFile(
+                    createFixtureFilename(
+                        Cypress.config().fixturesFolder as string,
+                        Cypress.spec.name,
+                        Cypress.currentTest.titlePath
+                    ), JSON.stringify(responses, null, 4)
+                );
             })
     });
 }
