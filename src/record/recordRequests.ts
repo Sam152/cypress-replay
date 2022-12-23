@@ -1,9 +1,9 @@
-import {CyHttpMessages, StaticResponse} from "cypress/types/net-stubbing";
+import { CyHttpMessages, StaticResponse } from "cypress/types/net-stubbing";
 import RequestCollection from "../utility/RequestCollection";
 import sanitizeHeaders from "../utility/sanitizeHeaders";
 import createFixtureFilename from "../utility/createFixtureFilename";
 import EnvComponentManager from "../utility/EnvComponentManager";
-import {ReplayConfig} from "../index";
+import { ReplayConfig } from "../index";
 
 export default function recordRequests(configuration: ReplayConfig) {
     let requestCollection: RequestCollection;
@@ -24,24 +24,20 @@ export default function recordRequests(configuration: ReplayConfig) {
                         // Including a delay that matches how long the server took to response will help make tests more
                         // deterministic.
                         delay: Date.now() - startTime,
-                    })
+                    });
                 });
-            })
+            });
 
             requestCollection.pushIncomingRequest(request, promise);
         });
     });
 
     afterEach(() => {
-        cy.then(() => requestCollection.resolveMap())
-            .then(map => {
-                cy.writeFile(
-                    createFixtureFilename(
-                        Cypress.config().fixturesFolder as string,
-                        Cypress.spec.name,
-                        Cypress.currentTest.titlePath
-                    ), JSON.stringify(map, null, 4)
-                );
-            })
+        cy.then(() => requestCollection.resolveMap()).then((map) => {
+            cy.writeFile(
+                createFixtureFilename(Cypress.config().fixturesFolder as string, Cypress.spec.name, Cypress.currentTest.titlePath),
+                JSON.stringify(map, null, 4)
+            );
+        });
     });
 }

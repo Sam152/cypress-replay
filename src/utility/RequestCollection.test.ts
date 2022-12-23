@@ -1,10 +1,10 @@
-import {expect, test} from '@jest/globals';
+import { expect, test } from "@jest/globals";
 import RequestCollection from "./RequestCollection";
 import EnvComponentManager from "./EnvComponentManager";
 
 const requestA = {
     body: "",
-    headers: {a: "b"},
+    headers: { a: "b" },
     method: "GET",
     url: "https://example.com/api",
     query: {},
@@ -12,25 +12,34 @@ const requestA = {
 };
 const requestB = {
     body: "",
-    headers: {a: "b"},
+    headers: { a: "b" },
     method: "GET",
     url: "https://example.com/api/different-endpoint",
     query: {},
     httpVersion: "1.1",
 };
 
-test('requests can be pushed and popped from the collection', async () => {
+test("requests can be pushed and popped from the collection", async () => {
     const collection = new RequestCollection(new EnvComponentManager({}));
 
-    collection.pushIncomingRequest(requestA, Promise.resolve({
-        body: "Request A first response"
-    }));
-    collection.pushIncomingRequest(requestB, Promise.resolve({
-        body: "Request B response"
-    }));
-    collection.pushIncomingRequest(requestA, Promise.resolve({
-        body: "Request A second response"
-    }));
+    collection.pushIncomingRequest(
+        requestA,
+        Promise.resolve({
+            body: "Request A first response",
+        })
+    );
+    collection.pushIncomingRequest(
+        requestB,
+        Promise.resolve({
+            body: "Request B response",
+        })
+    );
+    collection.pushIncomingRequest(
+        requestA,
+        Promise.resolve({
+            body: "Request A second response",
+        })
+    );
 
     expect((await collection.shiftRequest(requestB))?.body).toEqual("Request B response");
     expect(await collection.shiftRequest(requestB)).toEqual(null);
@@ -39,7 +48,7 @@ test('requests can be pushed and popped from the collection', async () => {
     expect(await collection.shiftRequest(requestA)).toEqual(null);
 });
 
-test('responses can be appended from fixtures', () => {
+test("responses can be appended from fixtures", () => {
     const collection = new RequestCollection(new EnvComponentManager({}));
     collection.appendFromFixture({
         "GET:foo": [
@@ -48,7 +57,7 @@ test('responses can be appended from fixtures', () => {
             },
             {
                 body: "bar",
-            }
+            },
         ],
     });
     collection.appendFromFixture({
@@ -71,22 +80,29 @@ test('responses can be appended from fixtures', () => {
             },
             {
                 body: "bar",
-            }
+            },
         ],
     });
 });
 
-test('the response map can be resolved from pending requests that have yet to complete', () => {
+test("the response map can be resolved from pending requests that have yet to complete", () => {
     const collection = new RequestCollection(new EnvComponentManager({}));
-    collection.pushIncomingRequest(requestA, new Promise((resolve) => {
-        setTimeout(() => resolve({
-            body: "delayed response"
-        }), 25);
-    }));
+    collection.pushIncomingRequest(
+        requestA,
+        new Promise((resolve) => {
+            setTimeout(
+                () =>
+                    resolve({
+                        body: "delayed response",
+                    }),
+                25
+            );
+        })
+    );
     expect(collection.resolveMap()).resolves.toEqual({
         "GET:https://example.com/api": [
             {
-                "body": "delayed response",
+                body: "delayed response",
             },
         ],
     });
