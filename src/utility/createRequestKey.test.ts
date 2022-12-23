@@ -1,7 +1,7 @@
-import {describe, expect, test} from '@jest/globals';
+import { describe, expect, test } from "@jest/globals";
 import createRequestKey from "./createRequestKey";
 
-test('that request keys are created from normal GET requests', () => {
+test("that request keys are created from normal GET requests", () => {
     expect(
         createRequestKey({
             body: "",
@@ -11,10 +11,10 @@ test('that request keys are created from normal GET requests', () => {
             query: {},
             httpVersion: "1.1",
         })
-    ).toEqual("GET:https://example.com/foo/bar")
+    ).toEqual("GET:https://example.com/foo/bar");
 });
 
-test('that request keys are do not duplicate the query string', () => {
+test("that request keys are do not duplicate the query string", () => {
     expect(
         createRequestKey({
             body: "",
@@ -22,22 +22,22 @@ test('that request keys are do not duplicate the query string', () => {
             url: "https://example.com/foo/bar?foo=bar",
             method: "GET",
             query: {
-                "foo": "Bar",
+                foo: "Bar",
             },
             httpVersion: "1.1",
         })
-    ).toEqual("GET:https://example.com/foo/bar?foo=bar")
+    ).toEqual("GET:https://example.com/foo/bar?foo=bar");
 });
 
-test('that request keys are created from POST body with JSON object', () => {
+test("that request keys are created from POST body with JSON object", () => {
     expect(
         createRequestKey({
-            body: {"post": "body"},
+            body: { post: "body" },
             headers: {},
             url: "https://example.com/foo/bar",
             method: "POST",
             query: {},
             httpVersion: "1.1",
         })
-    ).toEqual("POST:https://example.com/foo/bar:{\"post\":\"body\"}")
+    ).toEqual('POST:https://example.com/foo/bar:{"post":"body"}');
 });
