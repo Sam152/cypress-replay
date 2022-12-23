@@ -34,13 +34,13 @@ export default function recordRequests(configuration: ReplayConfig) {
 
     afterEach(() => {
         cy.then(() => requestCollection.resolveMap())
-            .then(responses => {
+            .then(map => {
                 cy.writeFile(
                     createFixtureFilename(
                         Cypress.config().fixturesFolder as string,
                         Cypress.spec.name,
                         Cypress.currentTest.titlePath
-                    ), JSON.stringify(responses, null, 4)
+                    ), JSON.stringify(map, null, 4)
                 );
             })
     });
