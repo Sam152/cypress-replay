@@ -3,14 +3,17 @@ import RequestCollection from "../utility/RequestCollection";
 import createFixtureFilename, { createMergedFixtureFilename } from "../utility/createFixtureFilename";
 import EnvComponentManager from "../utility/EnvComponentManager";
 import Logger from "../utility/Logger";
+import waitForIdle from "../utility/waitForIdle";
 import { ReplayConfig } from "../index";
 
 export default function recordRequests(configuration: ReplayConfig) {
     const dynamicComponentManager = EnvComponentManager.fromEnvironment(configuration.dynamicRequestEnvComponents || [], Cypress.env);
     let logger: Logger;
+    let requests: Set<Promise<any>>
 
     beforeEach(() => {
         logger = new Logger();
+        requests = new Set()
 
         // Create a request collection from the fixture fix.
         cy.readFile(createFixtureFilename(Cypress.config().fixturesFolder as string, Cypress.spec.name, Cypress.currentTest.titlePath))
@@ -48,6 +51,9 @@ export default function recordRequests(configuration: ReplayConfig) {
                 cy.intercept(new RegExp(configuration.interceptPattern || ".*"), async (req: CyHttpMessages.IncomingHttpRequest) => {
                     const fixtureResponse = await requestCollection.shiftRequest(req);
                     if (fixtureResponse) {
+                        requests.add(new Promise<any>((resolve) => {
+                            req.on("after:response", resolve);
+                        }))
                         req.reply({
                             ...fixtureResponse,
                             delay:
@@ -61,6 +67,8 @@ export default function recordRequests(configuration: ReplayConfig) {
     });
 
     afterEach(() => {
-        logger.getAll().map((log) => cy.log(`cypress-replay: ${log.message}\n\n${JSON.stringify(log.context)}`));
+        cy.then(() => waitForIdle(requests)).then(() => {
+            logger.getAll().map((log) => cy.log(`cypress-replay: ${log.message}\n\n${JSON.stringify(log.context)}`))
+        })
     });
 }
