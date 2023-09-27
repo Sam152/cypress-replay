@@ -7,6 +7,9 @@ export default function createRequestKey(request: IncomingRequest) {
     if (typeof request.body === "object") {
         keyComponents.push(JSON.stringify(request.body));
     }
+    else if(request.body) {
+        keyComponents.push(request.body);
+    }
 
     return keyComponents.join(":");
 }
