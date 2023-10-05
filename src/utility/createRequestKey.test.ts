@@ -41,3 +41,16 @@ test("that request keys are created from POST body with JSON object", () => {
         })
     ).toEqual('POST:https://example.com/foo/bar:{"post":"body"}');
 });
+
+test("that request keys are created from POST body with string", () => {
+    expect(
+        createRequestKey({
+            body: 'sample post body',
+            headers: {},
+            url: "https://example.com/foo/bar",
+            method: "POST",
+            query: {},
+            httpVersion: "1.1",
+        })
+    ).toEqual('POST:https://example.com/foo/bar:sample post body');
+});
