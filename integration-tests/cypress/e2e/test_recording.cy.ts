@@ -1,8 +1,8 @@
 import enableCypressReplay, {ReplayMode} from "../../../src";
 
 context('Cypress Replay', () => {
-  enableCypressReplay(ReplayMode.Replaying, {responseDelayOverride: 0});
-  // enableCypressReplay(ReplayMode.Recording);
+  // enableCypressReplay(ReplayMode.Replaying, {responseDelayOverride: 0});
+  enableCypressReplay(ReplayMode.Recording);
 
   beforeEach(() => {
     cy.visit('https://example.cypress.io/commands/network-requests')
@@ -24,5 +24,10 @@ context('Cypress Replay', () => {
     cy.get('body').contains('POST successful!');
 
     cy.get('.network-put').click();
+  });
+
+  it('will work with a cancelled request', () => {
+    cy.get('.network-btn').click();
+    cy.visit('https://example.cypress.io/commands/network-requests');
   });
 });
